@@ -17,7 +17,7 @@ div.serverstatus{
     margin:auto;
 }
 table.serverstatus-data-table{
-    background: url("https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/image/rDtN98Qoishumwih/brown-dirt-minecraft-pattern_thumb.jpg");   
+    background-image: url("https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/image/rDtN98Qoishumwih/brown-dirt-minecraft-pattern_thumb.jpg");   
     margin:auto;
     min-width:95%;
     width:95%;
@@ -25,6 +25,12 @@ table.serverstatus-data-table{
     color:white; 
     border-radius: 10px;
     max-width:800px;
+}
+table.serverstatus-data-table tr:not(:first-child) td{
+    display:flex;
+}
+table.serverstatus-data-table tr:not(:first-child) th{
+    width:150px;
 }
 div.serverstatus table, div.serverstatus  tr, div.serverstatus  th, div.serverstatus td{
     border:unset !important;
@@ -62,7 +68,7 @@ div.serverstatus table, div.serverstatus  tr, div.serverstatus  th, div.serverst
 <div class="serverstatus pagetitle">  
                 <noscript>Whoops! The server information block won't work until you enable Javascript, Please Enable it <style>div.serverstatuspanel{display:none;}</style></noscript>
                     <div class="serverstatuspanel">
-                    <table class="serverstatus-data-table">
+                    <table id="smpstatus" class="serverstatus-data-table">
                         <tbody>
                         <tr><td colspan="2"><img src="/images/logo.png" class="style-exclude" width="150px"><br><h3>SMP Server Information</h3></td></tr>
                         <tr><th><i class="fa-solid fa-server"></i>  Server IP Address</th><td><div class="APIResponseDataContainer"><span id="hostname"><div class="loading-text">Loading</div></span></div></td></tr>
@@ -81,8 +87,34 @@ div.serverstatus table, div.serverstatus  tr, div.serverstatus  th, div.serverst
                     <div id="isofflinecss"></div>
                     <style>div.serverstatuspanel{width:100%;}</style>
                 </div>
-                <a class="button button-green join-btn" href="https://link.worldofsteelcraft.tk/smp-save"><i class="fa-solid fa-gamepad"></i>  Join server(Members Only)</a>
+                <a class="button" href="https://link.worldofsteelcraft.tk/smp-save"><i class="fa-solid fa-gamepad"></i>  Join server(Members Only)</a><button class="button" id="btn"><i class="fas fa-download"></i> Share Image</button>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+function capture() {
+    const captureElement = document.querySelector('#smpstatus') // Select the element you want to capture. Select the <body> element to capture full page.
+    html2canvas((captureElement),{
+            allowTaint: true,
+            useCORS: true
+        })
+        .then(canvas => {
+            document.body.appendChild(canvas)
+            return canvas
+        })
+        .then(canvas => {
+            const image = canvas.toDataURL('image/png')
+            const a = document.createElement('a')
+            a.setAttribute('download', 'smpstatus.png')
+            a.setAttribute('href', image)
+            a.click()
+            canvas.remove()
+        })
+}
+const btn = document.querySelector('#btn')
+btn.addEventListener('click', capture)
+
+</script>
+
 
 {{</html>}}
 ***
