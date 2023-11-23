@@ -167,6 +167,7 @@ outputs:
   home:
     - HTML
     - RSS
+    - JSON
     - MANIFEST
     - CMSCONFIG
 buildExpired: false
